@@ -1,0 +1,91 @@
+---
+#title: 'mapa de calor #30diasdegraficos'
+#author: "JordanJasuta"
+#date: "5/21/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Día 11 del desafío #30díasdegráficos con R: mapa de calor
+##### No pude resistir el juego de palabras así que aca un mapeo de los incendios en Australia el año pasado - mapa de calor literal :P 
+
+Datos de los incendios bajados del proyecto Kaggle "Fires from Space" - disponible en https://www.kaggle.com/carlosparadis/fires-from-space-australia-and-new-zeland .
+
+Divisiones administrativas de Australia bajadas de DIVA-GIS - disponible en http://www.diva-gis.org/datadown .
+
+
+
+Empezamos cargando los paquetes requeridos...
+```{r paquetes, echo = T, results='hide'}
+library(ggplot2)
+library(dplyr)
+library(rgdal)
+library(sp)
+library(sf)
+library(rmapshaper)
+```
+
+Cargar los datos...
+```{r datos, echo = T, results = 'hide'}
+# cargar datos
+setwd("/Users/jordan.j.fischer@ibm.com/Documents/Training/RTraining/30diasdegraficos/mapa de calor")
+fires1 <- read.csv('fire_archive_M6_96619.csv')
+#adm1 <- readOGR("AUS_adm/AUS_adm1.shp")
+adm2 <- readOGR("AUS_adm/AUS_adm2.shp")
+head(fires1)
+```
+
+Visualizar los incendios coloridos según intensidad (medida aquí por el variable brightness)...
+```{r mapa de puntos, echo = T}
+map3 <- ggplot() + 
+  geom_polygon(data = adm2, aes(x = long, y = lat, group = group), colour = "gray", fill = NA) + 
+  geom_point(data = fires1 %>%
+               arrange(brightness),
+             aes(x=longitude, y=latitude, color=brightness)) + 
+  scale_color_gradient(name = 'intensidad', low="yellow", high="red") +
+  ggtitle("incendios en Australia verano 2019-2020") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_void()
+map3
+```
+
+Para que sea un mapa de calor de verdad, hay que conseguir un cifra de intensidad por territorio (adm2) del país. Lo logramos con un spatial join y sumando el nivel de intensidad (brightness) por territorio...
+```{r join, echo = T}
+crs <- st_crs(adm2)       # conseguir crs del shapefile para asegurarse que el crs de los puntos sea igual/compatible
+pts <- st_as_sf(fires1, coords = c("longitude", "latitude"), crs = crs)
+poly2 <- st_as_sf(adm2)
+
+object.size(poly2)
+poly2_simp = rmapshaper::ms_simplify(poly2, keep = 0.01,         # para minimizar el tiempo de procesamiento, simplificar el shapefile
+                                    keep_shapes = TRUE)
+object.size(poly2_simp)
+
+
+joined2 <- st_join(poly2_simp, pts, join = st_intersects)     # juntar los archivos
+#table(joined2$NAME_2, exclude = NULL)
+
+grouped <- joined2 %>%
+  group_by(NAME_2) %>%
+  mutate(fire_by_adm = sum(brightness, na.rm = TRUE))
+
+per_territory <- grouped[!duplicated(grouped$NAME_2),]
+```
+
+Visualizar la intensidad total de los incendios por territorio...
+```{r mapa de calor, echo = T}
+mapa_calor <- ggplot() +
+  geom_sf(data = per_territory, color='white', aes(fill=fire_by_adm), lwd = 0.2) + 
+  scale_fill_gradient(name = 'intensidad', low="yellow", high="red") +
+  ggtitle("adm2 de Australia por intensidad de incendios, verano 2019-2020") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_void()
+mapa_calor
+
+```
+
+
+
+
