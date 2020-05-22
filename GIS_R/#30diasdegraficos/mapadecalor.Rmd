@@ -18,7 +18,7 @@ Divisiones administrativas de Australia bajadas de DIVA-GIS - disponible en http
 
 
 
-Empezamos cargando los paquetes requeridos...
+Primero que todo, cargar los paquetes requeridos...
 ```{r paquetes, echo = T, results='hide'}
 library(ggplot2)
 library(dplyr)
@@ -26,22 +26,21 @@ library(rgdal)
 library(sp)
 library(sf)
 library(rmapshaper)
+require(classInt)
 ```
 
 Cargar los datos...
 ```{r datos, echo = T, results = 'hide'}
-# cargar datos
 setwd("/Users/jordan.j.fischer@ibm.com/Documents/Training/RTraining/30diasdegraficos/mapa de calor")
 fires1 <- read.csv('fire_archive_M6_96619.csv')
-#adm1 <- readOGR("AUS_adm/AUS_adm1.shp")
 adm2 <- readOGR("AUS_adm/AUS_adm2.shp")
 head(fires1)
 ```
 
-Visualizar los incendios coloridos según intensidad (medida aquí por el variable brightness)...
+Visualizar los incendios coloridos según intensidad (determinada aquí por el variable 'brightness', o luminosidad del incendio medida por sensores satelitales)...
 ```{r mapa de puntos, echo = T}
 map3 <- ggplot() + 
-  geom_polygon(data = adm2, aes(x = long, y = lat, group = group), colour = "gray", fill = NA) + 
+  geom_polygon(data = adm2, aes(x = long, y = lat, group = group), colour = "gray", fill = NA) +  # esta linea es pesada, puede tardar un poco
   geom_point(data = fires1 %>%
                arrange(brightness),
              aes(x=longitude, y=latitude, color=brightness)) + 
@@ -52,7 +51,7 @@ map3 <- ggplot() +
 map3
 ```
 
-Para que sea un mapa de calor de verdad, hay que conseguir un cifra de intensidad por territorio (adm2) del país. Lo logramos con un spatial join y sumando el nivel de intensidad (brightness) por territorio...
+Para que sea un mapa de calor de verdad (y no solo haciendo juego de palabras), hay que conseguir un cifra de intensidad por territorio (adm2) del país. Lo logramos con un spatial join y sumando el nivel de intensidad (brightness) por territorio...
 ```{r join, echo = T}
 crs <- st_crs(adm2)       # conseguir crs del shapefile para asegurarse que el crs de los puntos sea igual/compatible
 pts <- st_as_sf(fires1, coords = c("longitude", "latitude"), crs = crs)
@@ -65,20 +64,28 @@ object.size(poly2_simp)
 
 
 joined2 <- st_join(poly2_simp, pts, join = st_intersects)     # juntar los archivos
-#table(joined2$NAME_2, exclude = NULL)
 
 grouped <- joined2 %>%
   group_by(NAME_2) %>%
   mutate(fire_by_adm = sum(brightness, na.rm = TRUE))
 
-per_territory <- grouped[!duplicated(grouped$NAME_2),]
+per_territory <- grouped[!duplicated(grouped$NAME_2),]    # solo se necesita 1 cifra / división administrativa 
 ```
 
 Visualizar la intensidad total de los incendios por territorio...
 ```{r mapa de calor, echo = T}
+# el mapa estandar tiene los colores divididos igualmente, lo cual no es suficientemente sensible para mostrar las diferencias en
+# intensidad de los incendios, por lo cual usamos natural breaks (detalles: https://rpubs.com/danielkirsch/styling-choropleth-maps)
+
+per_territory$area <- st_area(per_territory$geometry)/1000000   # area en 1000s de kmˆ2
+natural.interval = classIntervals(per_territory$fire_by_adm, n = 10, style = 'jenks')$brks
+per_territory$fire_by_adm.natural = cut(per_territory$area, breaks=natural.interval, include.lowest = TRUE)
+
+cc <- scales::seq_gradient_pal("red", "yellow", "Lab")(seq(0,1,length.out=10))
+
 mapa_calor <- ggplot() +
-  geom_sf(data = per_territory, color='white', aes(fill=fire_by_adm), lwd = 0.2) + 
-  scale_fill_gradient(name = 'intensidad', low="yellow", high="red") +
+  geom_sf(data = per_territory, color='white', aes(fill=per_territory$fire_by_adm.natural), lwd = 0.1) + 
+  scale_fill_manual(name = 'intensidad', values=cc) +
   ggtitle("adm2 de Australia por intensidad de incendios, verano 2019-2020") +
   theme(plot.title = element_text(hjust = 0.5)) +
   theme_void()
