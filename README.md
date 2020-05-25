@@ -2,7 +2,11 @@
 Living repo to stash useful tools for coding tasks that are bound to come up again
 
 Contents include:
-* __all_files_in_directory__ (scripts that operate on all the files in a root directory, subdirectories, etc for data processing and concatenation)
+* Data_Management
+    * __all_files_in_directory__ (scripts that operate on all the files in a root directory, subdirectories, etc for data processing and concatenation)
+      * `change_file_type.py`  
+      * `files_to_csv_v1.py`  (concats all files in subdirectory)
+      * `files_to_csv_v2.py`  (includes some filters)
 * __GISpython__
     * `shapefile_basics.py`  (geopandas + matplotlib)
 * __GIS_R___

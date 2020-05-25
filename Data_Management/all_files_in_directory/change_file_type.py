@@ -1,3 +1,7 @@
+"""
+Script to change file type of all files in a directory
+"""
+
 import pandas as pd
 from pandas import ExcelWriter
 from pandas import ExcelFile

@@ -1,5 +1,6 @@
 """
-Script to unite 4138 txt docs from 41 machine
+Script to unite txt docs into one csv file
+* concats all text documents in subfolder into same observation in csv
 """
 
 import glob, os
