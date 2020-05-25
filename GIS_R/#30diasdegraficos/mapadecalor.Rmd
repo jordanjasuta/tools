@@ -51,7 +51,7 @@ map3 <- ggplot() +
 map3
 ```
 
-Para que sea un mapa de calor de verdad (y no solo haciendo juego de palabras), hay que conseguir un cifra de intensidad por territorio (adm2) del país. Lo logramos con un spatial join y sumando el nivel de intensidad (brightness) por territorio...
+Para que sea un mapa de calor de verdad, hay que conseguir una cifra de intensidad por territorio (adm2) del país. Lo logramos con un spatial join y sumando el nivel de intensidad (brightness) por territorio...
 ```{r join, echo = T}
 crs <- st_crs(adm2)       # conseguir crs del shapefile para asegurarse que el crs de los puntos sea igual/compatible
 pts <- st_as_sf(fires1, coords = c("longitude", "latitude"), crs = crs)
