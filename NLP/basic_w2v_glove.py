@@ -44,7 +44,7 @@ def setup_data(data):
                'x':[clean(s).split() for s in sentences(row['TEXT'])]}
 
 # set categories - obviously these would need to be changed depending on the analysis
-categories = ['UNKNOWN','EXAM_ISSUE','DEPENDENCY_REQUEST','PAYMENT_ISSUE','NOTICE_OF_DEATH','DEPENDENCY_REQUEST_REMOVAL']
+categories = ['one','two','three','four','five','six']
 
 def GetStrings(text, categories = categories):   # pull out text strings
     for t in text:
