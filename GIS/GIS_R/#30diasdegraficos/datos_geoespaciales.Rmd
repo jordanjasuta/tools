@@ -1,0 +1,99 @@
+---
+#title: "datos_geoespaciales"
+#author: "JordanJasuta"
+#date: "5/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Día 18 del desafío #30díasdegráficos con R: visualizar datos geoespaciales
+##### Datos LiDar de la cuenca hidrolica de los Ríos Mameyes y Grande en Puerto Rico, bajados de opentopography.org.
+##### Renderizaciones rápidas en 2D y 3D con Rayshader (www.rayshader.com/), una herramienta especialmente 
+##### amigable al usuario que produce visualizaciones sofisticadas en pocos pasos. 
+
+Empezamos cargando los paquetes 
+(de ser necesario, Rayshader y whitebox se pueden instalar usando `remotes::install_github("tylermorganwall/rayshader")` y `remotes::install_github("giswqs/whiteboxR")` )
+```{r paquetes, echo = T, results='hide'}
+options(rgl.useNULL = FALSE)
+library(ggplot2)
+library(whitebox)
+library(rayshader)
+library(rayrender)
+library(sp)
+library(raster)
+library(spatstat)
+library(spatstat.utils)
+library(suncalc)
+library(lubridate)
+library(rgdal)
+
+```
+
+Cargamos los datos LAS y los convertimos en raster y matriz
+```{r datos, echo = T, results = 'hide'}
+setwd("/Users/jordan.j.fischer@ibm.com/Documents/Training/RTraining/30diasdegraficos")
+
+#cargar datos
+whitebox::wbt_lidar_tin_gridding(here::here("y_points.las"),
+                                 output = here::here("y.tif"),
+                                 resolution = 1, verbose_mode = TRUE)
+
+#transformar datos
+yunque = raster::raster("y.tif")
+el_yunque = raster_to_matrix(yunque)
+```
+
+Está un poco grande el area contenido en el raster layer. Lo podemos cortar usando 2 funciones del paquete raster:
+```{r crop, echo = T}
+# averiguar la extensión del raster original
+extent(yunque)
+# podemos calcular las nuevas dimenciones según la proporción del mapa que queremos guardar
+e = extent(c(213998.6, 215393.6, 2012445, 2013557))
+
+# usamos ese extent object para hacerle crop al raster original al area deseada 
+y_crop <- crop(yunque, e)
+
+# lo convertimos en matriz para uso en las visualizacions 
+el_yunque_crop <- raster_to_matrix(y_crop)
+
+```
+
+Renderizar imagen en 2 dimensiones
+```{r 2D, echo = T}
+el_yunque_crop %>%
+  sphere_shade(texture = "imhof1") %>%
+  add_water(detect_water(el_yunque_crop,cutoff=0.2, 
+                         zscale=1,
+                         min_area = length(el_yunque)/100,
+                         max_height = 1)) %>%
+  add_shadow(ray_shade(el_yunque_crop, zscale = 1, multicore = TRUE, 
+                       sunaltitude = 30, sunangle = -120),0.3) %>%
+  plot_map()
+
+```
+
+Renderizar imagen en 3D
+```{r 3D, echo = T}
+el_yunque_crop %>%
+  sphere_shade(texture = "imhof1") %>%
+  add_water(detect_water(el_yunque_crop,cutoff=0.2, 
+                         zscale=1,
+                         min_area = length(el_yunque)/100,
+                         max_height = 1)) %>%
+  add_shadow(ray_shade(el_yunque_crop, zscale = .5, multicore = TRUE),0.3) %>% 
+  plot_3d(el_yunque_crop, zscale = .5, water = TRUE, waterdepth = 0,
+          zoom=0.75, windowsize = 700, 
+          background = "white", shadowcolor = "grey50")
+
+render_camera(phi = 45,fov = 70,zoom = 0.55,theta = 25)
+render_snapshot(title_text = "Rio Mameyes and Rio Blanco Watersheds, Puerto Rico",
+                title_bar_color = "black",
+                title_color = "white", vignette = 0.2)
+```
+
+Para más info sobre Rayshader y sus diversos usos, ver www.rayshader.com o seguirle al creador en Twitter @tylermorganwall[https://twitter.com/tylermorganwall]
+
+
