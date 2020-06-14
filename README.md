@@ -14,4 +14,5 @@ Contents include:
       * `mapadecalor.Rmd`  (shapefiles, spatial join (polygons + points ), heatmap, natural breaks)
       * `datosgeoespaciales.Rmd`  (raster data, [rayshader](https://www.rayshader.com/) )
 * __NLP__
-    * `basic_w2v_glove.py`  (LR classification with gensim word2vec + GloVe basemodel)
+    * `w2v_GloVe_LR.py`  (LR classification with gensim word2vec + GloVe basemodel)
+    * `w2v_GloVe_MLPclf.py`  (MLP classification with gensim word2vec + GloVe basemodel)
