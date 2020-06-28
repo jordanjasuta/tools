@@ -7,6 +7,8 @@ Contents include:
       * `change_file_type.py`  
       * `files_to_csv_v1.py`  (concats all files in subdirectory)
       * `files_to_csv_v2.py`  (includes some filters)
+    * `API_call_json.py`
+    * `SQL_data_pull.py`
 * __GIS__
     * __GIS_python__
       * `shapefile_basics.py`  (geopandas + matplotlib)
