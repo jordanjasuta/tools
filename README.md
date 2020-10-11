@@ -19,3 +19,4 @@ Contents include:
     * `w2v_GloVe_LR.py`  (LR classification with gensim word2vec + GloVe basemodel)
     * `w2v_GloVe_MLPclf.py`  (MLP classification with gensim word2vec + GloVe basemodel)
     * `doc2vec_LR.py`  (LR classification with gensim doc2vec model)
+    * `date_feature_extractor.py`  (datefinder for feature extraction)
