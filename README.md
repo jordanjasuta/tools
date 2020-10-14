@@ -9,6 +9,7 @@ Contents include:
       * `files_to_csv_v2.py`  (includes some filters)
     * `API_call_json.py`
     * `SQL_data_pull.py`
+    * `auto_update_test.py`
 * __GIS__
     * __GIS_python__
       * `shapefile_basics.py`  (geopandas + matplotlib)
