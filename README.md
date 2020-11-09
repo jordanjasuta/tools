@@ -10,6 +10,7 @@ Contents include:
     * `API_call_json.py`
     * `SQL_data_pull.py`
     * `auto_update_test.py`
+    * `unmelt_data.py`  (easier for human review)
 * __GIS__
     * __GIS_python__
       * `shapefile_basics.py`  (geopandas + matplotlib)
