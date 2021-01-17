@@ -14,6 +14,7 @@ Contents include:
 * __GIS__
     * __GIS_python__
       * `shapefile_basics.py`  (geopandas + matplotlib)
+      * `satellite_imagery_api.ipynb`  (rasterio + geopandas + gdal + geojson + shapely)
     * __GIS_R__
       * `mapadecalor.Rmd`  (shapefiles, spatial join (polygons + points ), heatmap, natural breaks)
       * `datosgeoespaciales.Rmd`  (raster data, [rayshader](https://www.rayshader.com/) )
