@@ -20,6 +20,9 @@ Contents include:
     * __GIS_R__
       * `mapadecalor.Rmd`  (shapefiles, spatial join (polygons + points ), heatmap, natural breaks)
       * `datosgeoespaciales.Rmd`  (raster data, [rayshader](https://www.rayshader.com/) )
+    * __geo_data_enrichment__
+      * `myshiptracking_scrape.py` (BeautifulSoup, pagination)
+      * `satcat_enrichment_pull.py` (spacetrack api)
 * __NLP__
     * `w2v_GloVe_LR.py`  (LR classification with gensim word2vec + GloVe basemodel)
     * `w2v_GloVe_MLPclf.py`  (MLP classification with gensim word2vec + GloVe basemodel)
