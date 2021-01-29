@@ -16,6 +16,7 @@ Contents include:
       * `shapefile_basics.py`  (geopandas + matplotlib)
       * `satellite_imagery_api.ipynb`  (rasterio + geopandas + gdal + geojson + shapely)
       * `basic_vessel_analytics.ipynb`  (plotly + mapbox)
+      * `route_data_clustering.ipynb`  (S3 import + geopandas + sklearn.dbscan + sklearn.optics)
     * __GIS_R__
       * `mapadecalor.Rmd`  (shapefiles, spatial join (polygons + points ), heatmap, natural breaks)
       * `datosgeoespaciales.Rmd`  (raster data, [rayshader](https://www.rayshader.com/) )
