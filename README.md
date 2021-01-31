@@ -28,6 +28,7 @@ Contents include:
     * `w2v_GloVe_MLPclf.py`  (MLP classification with gensim word2vec + GloVe basemodel)
     * `doc2vec_LR.py`  (LR classification with gensim doc2vec model)
     * `date_feature_extractor.py`  (datefinder for feature extraction)
+    * `tfidf_lda.R`   (tf-idf + lda modeling with textmineR)
 
 
 _Note: if .ipynb file fails to load due to gh backend issues, use gh notebook url to view from [https://nbviewer.jupyter.org/](https://nbviewer.jupyter.org/)_
