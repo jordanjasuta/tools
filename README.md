@@ -30,6 +30,7 @@ Contents include:
     * `doc2vec_LR.py`  (LR classification with gensim doc2vec model)
     * `date_feature_extractor.py`  (datefinder for feature extraction)
     * `tfidf_lda.R`   (tf-idf + lda modeling with textmineR)
+    * `quick_search_for_text_near.ipynb` (quick search using regex)
 
 
 _Note: if .ipynb file fails to load due to gh backend issues, use gh notebook url to view from [https://nbviewer.jupyter.org/](https://nbviewer.jupyter.org/)_
