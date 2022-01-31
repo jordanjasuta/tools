@@ -11,6 +11,7 @@ Contents include:
     * `SQL_data_pull.py`
     * `auto_update_test.py`
     * `unmelt_data.py`  (easier for human review)
+    * `mongodb_connect.ipynb` (pymongo)
 * __GIS__
     * __GIS_python__
       * `shapefile_basics.py`  (geopandas + matplotlib)
