@@ -1,0 +1,78 @@
+{
+  "Mexico": {
+    "capital": {
+      "name": "Mexico City"
+      },
+    "second_city": {
+      "name": "Monterrey"
+      }
+  },
+  "Guatemala": {
+    "capital": {
+      "name": "Guatemala City"
+      },
+    "second_city": {
+      "name": "Antigua"
+      }
+  },
+  "United States": {
+    "capital": {
+      "name": "Washington DC"
+      },
+    "second_city": {
+      "name": "New York City"
+      }
+  },
+  "Malaysia": {
+    "capital": {
+      "name": "Kuala Lumpur"
+      }
+  },
+  "Portugal": {
+    "capital": {
+      "name": "Lisbon"
+      },
+    "second_city": {
+      "name": "Porto"
+      }
+  },
+  "Ghana": {
+    "capital": {
+      "name": "Accra"
+      }
+  },
+  "Nigeria": {
+    "capital": {
+      "name": "Abuja"
+      },
+    "second_city": {
+      "name": "Lagos"
+      }
+  },
+  "Tunisia": {
+    "capital": {
+      "name": "Tunis"
+      }
+  },
+  "Lebanon": {
+    "capital": {
+      "name": "Beirut"
+      }
+  },
+  "Turkey": {
+    "capital": {
+      "name": "Ankara"
+      },
+    "second_city": {
+      "name": "Istanbul"
+      }
+  },
+  "Germany": {
+    "capital": {
+      "name": "Berlin"
+      },
+    "second_city": {
+      "name": "Munich"
+      }
+  }
+}
