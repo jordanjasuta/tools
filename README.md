@@ -25,6 +25,8 @@ Contents include:
     * __geo_data_enrichment__
       * `myshiptracking_scrape.py` (BeautifulSoup, pagination)
       * `satcat_enrichment_pull.py` (spacetrack api)
+* __Multiprocessing__
+    * `parallelization.py`  (concurrent.futures.ThreadPoolExecutor)
 * __NLP__
     * `w2v_GloVe_LR.py`  (LR classification with gensim word2vec + GloVe basemodel)
     * `w2v_GloVe_MLPclf.py`  (MLP classification with gensim word2vec + GloVe basemodel)
