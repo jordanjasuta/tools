@@ -1,0 +1,81 @@
+{"Mexico": {
+  "capital": {
+    "name": "Mexico City",
+    "lon": -99.1331785,
+    "lat": 19.4326296
+    },
+  "second_city": {
+    "name": "Monterrey",
+    "lon": -100.315258,
+    "lat": 25.6802019
+    }
+  },
+ "Guatemala": {
+   "capital": {
+     "name": "Guatemala City",
+     "lon": -90.5185188,
+     "lat": 14.6222328
+    },
+  "second_city": {
+    "name": "Antigua",
+    "lon": -61.790450458055844,
+    "lat": 17.10371515
+    }
+  },
+ "United States": {
+   "capital": {
+     "name": "Washington DC",
+     "lon": -77.0365427,
+     "lat": 38.8950368
+    },
+  "second_city": {
+    "name": "New York City",
+    "lon": -74.0060152,
+    "lat": 40.7127281
+    }
+  },
+ "Malaysia": {
+   "capital": {
+     "name": "Kuala Lumpur",
+     "lon": 101.6942371,
+     "lat": 3.1516964
+     }
+   },
+ "Portugal": {
+   "capital": {
+     "name": "Lisbon",
+     "lon": -9.1365919,
+     "lat": 38.7077507
+   },
+  "second_city": {
+    "name": "Porto",
+    "lon": -8.6107884,
+    "lat": 41.1494512
+    }
+  },
+ "Ghana": {
+   "capital": {
+     "name": "Accra",
+     "lon": -0.2012376,
+     "lat": 5.5571096
+     }
+   },
+ "Nigeria": {
+   "capital": {
+     "name": "Abuja",
+     "lon": 7.4892974,
+     "lat": 9.0643305
+   },
+  "second_city": {"name": "Lagos", "lon": 3.3941795, "lat": 6.4550575}},
+ "Tunisia": {"capital": {"name": "Tunis", "lon": 9.400138, "lat": 33.8439408}},
+ "Lebanon": {"capital": {"name": "Beirut",
+   "lon": 35.47843,
+   "lat": 33.8959203}},
+ "Turkey": {"capital": {"name": "Ankara",
+   "lon": 32.8540482,
+   "lat": 39.9207886},
+  "second_city": {"name": "Istanbul", "lon": 28.9662187, "lat": 41.0091982}},
+ "Germany": {"capital": {"name": "Berlin",
+   "lon": 13.3888599,
+   "lat": 52.5170365},
+  "second_city": {"name": "Munich", "lon": 11.5753822, "lat": 48.1371079}}}
