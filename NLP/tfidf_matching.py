@@ -42,6 +42,9 @@ class docMatcher:
     def get_sim_score(self, text1, text2):
         text1 = self.preprocess(text1)
         text2 = self.preprocess(text2)
+        print('matching: ')
+        print(text1)
+        print(text2)
 
         vecs = self.vectorizer.fit_transform([text1, text2])
         corr_matrix = ((vecs * vecs.T).A)
@@ -61,4 +64,4 @@ if __name__ == '__main__':
     text2 = 'evaluation of posttraumatic stress disorder on March 4th'
 
     score = matcher.get_sim_score(text1, text2)
-    print(score)
+    print('match score: ', score)
