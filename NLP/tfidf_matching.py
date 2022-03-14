@@ -7,6 +7,7 @@ Author: Jordan Jasuta Fischer
 """
 
 # import necessary packages and tools
+from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
@@ -27,6 +28,12 @@ class docMatcher:
 
         # lower case
         text = text.lower()
+
+        # remove punctuation
+
+        # remove stopwords
+        text = [word for word in text.split() if word not in stopwords.words('english')]
+        text = ' '.join(text)
 
         # spell check?
 
